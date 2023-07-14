@@ -11,7 +11,7 @@ const Tabs = ({ activeTab, tabs, setActiveTab }) => {
         <View style={styles.container}>
             <FlatList data={tabs} renderItem={({ item }) => {
                 return <TabButton name={item} activeTab={activeTab} onHandleSearchType={() => setActiveTab(item)} />
-            }} horizontal showsHorizontalScrollIndicator={false} keyExtractor={item => item} contentContainerStyle={{ columnGap: 6 }} />
+            }} horizontal showsHorizontalScrollIndicator={false} keyExtractor={item => item} contentContainerStyle={{ columnGap: 8 }} />
         </View>
     )
 }
@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
         shadowColor: 'white',
     }),
     btnText: (name, activeTab) => ({
-        fontFamily: "DMMedium",
         fontSize: 12,
         color: name === activeTab ? "#C3BFCC" : "#AAA9B8",
     })

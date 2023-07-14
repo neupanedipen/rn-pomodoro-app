@@ -4,24 +4,24 @@ import Tabs from "../components/Tabs";
 import { useState } from "react";
 
 
-const tabs = ['About', 'Qualifications', 'Responsibilities']
+const tabs = ['Focus', 'Short Break', 'Long Break']
 
 export default function Home({children}) {
   const [activeTab, setActiveTab] = useState(tabs[0])
 
   const displayTabContent = () => {
     switch (activeTab) {
-      case "Qualifications":
+      case "Focus":
         return (
           <Text>Qualifications</Text>
         );
 
-      case "About":
+      case "Short Break":
         return (
           <Text>Qualifications</Text>
         );
 
-      case "Responsibilities":
+      case "Long Break":
         return (
           <Text>Qualifications</Text>
         );
@@ -57,7 +57,7 @@ export default function Home({children}) {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    // alignItems: "center",
     padding: 24,
   },
 });
