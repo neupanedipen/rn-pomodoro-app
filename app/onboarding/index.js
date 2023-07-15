@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#DCE3E9',
         padding: Platform.OS === 'android' ? 24 : 0,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     titleContainer: {
         paddingTop: 60,

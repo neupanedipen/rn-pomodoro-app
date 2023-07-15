@@ -2,7 +2,7 @@ import Home from "./Home";
 import Onboarding from "./onboarding";
 
 const Page = () => {
-  return <Onboarding />
+  return <Home />
 }
 
 export default Page

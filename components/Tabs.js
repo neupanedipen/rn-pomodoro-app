@@ -26,21 +26,21 @@ const styles = StyleSheet.create({
     btn: (name, activeTab) => ({
         paddingVertical: 8,
         paddingHorizontal: 24,
-        backgroundColor: name === activeTab ? '#312651' : "#F3F4F8",
-        borderRadius: 8,
+        backgroundColor: name === activeTab ? '#544FFF' : "#F3F4F8",
+        borderRadius: 14,
         marginLeft: 2,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 2,
+            height: 1,
         },
         shadowOpacity: 0.25,
         shadowRadius: 5.84,
-        elevation: 5,
+        elevation: 2,
         shadowColor: 'white',
     }),
     btnText: (name, activeTab) => ({
-        fontSize: 12,
+        fontSize: 13,
         color: name === activeTab ? "#C3BFCC" : "#AAA9B8",
     })
 })
