@@ -7,10 +7,13 @@ To run the app locally:
 
 ### Screenshots of the app
 **Onboarding Screen**
+
 ![Onboarding screen](screenshots/onboarding.jpg)
 
 **Add Timer Screen**
+
 ![Add Timer screen](screenshots/addTimer.jpg)
 
 **Main App Screen**
+
 ![Main App screen](screenshots/app.jpg)
