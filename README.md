@@ -7,10 +7,10 @@ To run the app locally:
 
 ### Screenshots of the app
 **Onboarding Screen**
-!['Onboarding screen']('../../screenshots/onboarding.jpg')
+![Onboarding screen](screenshots/onboarding.jpg)
 
 **Add Timer Screen**
-!['Onboarding screen']('../../screenshots/addTimer.jpg')
+![Add Timer screen](screenshots/addTimer.jpg)
 
 **Main App Screen**
-!['Onboarding screen']('../../screenshots/app.jpg')
+![Main App screen](screenshots/app.jpg)
