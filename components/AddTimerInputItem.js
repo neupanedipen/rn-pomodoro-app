@@ -1,10 +1,11 @@
 import { View, TextInput, Text, StyleSheet } from "react-native"
 
-const AddTimerInputItem = ({type}) => {
+const AddTimerInputItem = ({type, value, handleChange, name}) => {
+    value = value.toString()
     return <View style={styles.textInputContainer}>
     <Text style={[styles.text, styles.title]}>{type}</Text>
     <View style={{flexDirection: 'row', columnGap: 8, alignItems: 'center'}}>
-    <TextInput style={styles.input} keyboardType="decimal-pad"/>
+    <TextInput name={name} value={value} onChangeText={handleChange} style={styles.input} keyboardType="decimal-pad"/>
     <Text style={[styles.text, styles.minText]}>min</Text>
     </View>
 </View>

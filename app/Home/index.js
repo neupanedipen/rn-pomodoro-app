@@ -5,7 +5,7 @@ import { Stack, useRouter } from "expo-router";
 import { AntDesign } from '@expo/vector-icons';
 import CircularBarAnimation from "../../components/CircularBarAnimation";
 import TextInputBar from "../../components/TextInputBar";
-import { AppContext } from "../../context/AppContext";
+import { SettingsContext } from "../../context/SettingsContext";
 
 
 const tabs = ['Focus', 'Short Break', 'Long Break']
@@ -13,22 +13,23 @@ const tabs = ['Focus', 'Short Break', 'Long Break']
 export default function Home({ children }) {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState(tabs[0])
-  const {focus, shortBreak, longBreak} = useContext(AppContext)
+  // const {focus, shortBreak, longBreak} = useContext(AppContext)
 
   let modeTimer = ''
+  const {timerContent} =useContext(SettingsContext)
 
   const displayTabContent = () => {
     switch (activeTab) {
       case "Focus":
-        modeTimer = <CircularBarAnimation time={focus}/>
+        modeTimer = <CircularBarAnimation key={activeTab} >{timerContent}</CircularBarAnimation>
         break;
 
       case "Short Break":
-        modeTimer = <CircularBarAnimation time={shortBreak}/>
+        modeTimer = <CircularBarAnimation key={activeTab} >{timerContent}</CircularBarAnimation>
         break;
 
       case "Long Break":
-        modeTimer = <CircularBarAnimation time={longBreak}/>
+        modeTimer = <CircularBarAnimation key={activeTab} >{timerContent}</CircularBarAnimation>
         break;
 
       default:

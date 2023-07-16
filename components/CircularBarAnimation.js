@@ -1,37 +1,29 @@
-import CircularProgress, {ProgressRef} from 'react-native-circular-progress-indicator';
-import {View, Dimensions, StyleSheet} from 'react-native'
-import { Button } from 'react-native';
-import { useRef } from 'react';
-import formatTime from '../utils/formatTime'
+import { useContext } from 'react'
+import {View, StyleSheet, Text} from 'react-native'
+import { SettingsContext } from '../context/SettingsContext'
+import {CountdownCircleTimer} from 'react-native-countdown-circle-timer'
 
-const CircularBarAnimation = ({time}) => {
-  const seconds = time *60;
-  const progressRef = useRef(ProgressRef)
+const CircularBarAnimation = ({key, timer, animate, children}) => {
+  timer = 1
+  animate = true
+
+  const {stopAnimate} = useContext(SettingsContext)
     return <View style={styles.circularBarContainer}>
-    <CircularProgress
-      value={formatTime(seconds)}
-      
-      title="00:00"
-      titleColor="#fff"
-      titleStyle={'bold'}
-      titleFontSize={48}
-      
-      // showProgressValue={false}
-      radius={Dimensions.get('window').width * 0.3}
-      maxValue={100}
-      // initialValue={0}
-      progressValueColor={'#fff'}
-      activeStrokeWidth={15}
-      activeStrokeColor="#544FFF"
-      inActiveStrokeWidth={15}
-      inActiveStrokeColor="#393939"
-      duration={seconds*1000}
-      onAnimationComplete={() => { }}
-      // clockwise={false}
-      startInPausedState= {true}
-      ref={progressRef}
-    />
-    <Button title='Press' onPress={() => progressRef.current.play()}/>
+    <CountdownCircleTimer
+        key={key}
+        isPlaying={animate}
+        duration={timer * 60}
+        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+    colorsTime={[7, 5, 2, 0]}
+        strokeWidth={6}
+        size={220}
+        trailColor="#151932"
+        onComplete={ () => {
+          stopAnimate()
+        }}
+      >
+        <Text>{children}</Text>
+      </CountdownCircleTimer>
   </View>
 }
 
