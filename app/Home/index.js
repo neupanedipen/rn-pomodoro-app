@@ -1,35 +1,35 @@
 import { Dimensions, Platform, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import CircularProgress from 'react-native-circular-progress-indicator';
 import Tabs from "../../components/Tabs";
-import { useState } from "react";
-import { Ionicons } from '@expo/vector-icons'; 
-import { Foundation } from '@expo/vector-icons';
+import { useContext, useState } from "react";
 import { Stack, useRouter } from "expo-router";
 import { AntDesign } from '@expo/vector-icons';
+import CircularBarAnimation from "../../components/CircularBarAnimation";
+import TextInputBar from "../../components/TextInputBar";
+import { AppContext } from "../../context/AppContext";
 
 
 const tabs = ['Focus', 'Short Break', 'Long Break']
 
 export default function Home({ children }) {
-    const router = useRouter()
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState(tabs[0])
+  const {focus, shortBreak, longBreak} = useContext(AppContext)
+
+  let modeTimer = ''
 
   const displayTabContent = () => {
     switch (activeTab) {
       case "Focus":
-        return (
-          <Text>Qualifications</Text>
-        );
+        modeTimer = <CircularBarAnimation time={focus}/>
+        break;
 
       case "Short Break":
-        return (
-          <Text>Qualifications</Text>
-        );
+        modeTimer = <CircularBarAnimation time={shortBreak}/>
+        break;
 
       case "Long Break":
-        return (
-          <Text>Qualifications</Text>
-        );
+        modeTimer = <CircularBarAnimation time={longBreak}/>
+        break;
 
       default:
         return null;
@@ -37,51 +37,31 @@ export default function Home({ children }) {
   };
   return (
     <SafeAreaView style={styles.container}>
-        <Stack.Screen
+      <Stack.Screen
         options={{
           headerShown: false
-         
+
         }}
       />
-      <Text style={{fontSize: 22, fontWeight: 'bold', marginTop: 20, color: '#E0DFE1', textAlign: 'center'}}>Pomodoro Timer</Text>
+      <Text style={{ fontSize: 22, fontWeight: 'bold', marginTop: 20, color: '#E0DFE1', textAlign: 'center' }}>Pomodoro Timer</Text>
 
-    <View style={styles.textInputContainer}>
-        <Text style={styles.textInputText}>Task:</Text>
-        <TextInput style={[styles.textInputText, styles.textInput]}/>
-        <Foundation name="pencil" size={24} color="#C0B6D6" style={styles.icon}/>
-    </View>
+      <TextInputBar/>
 
-    <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-          {displayTabContent()}
-      <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 50}}>
-      <View style={{alignSelf: 'center', justifyContent: 'center', padding: 10}}>
-        <CircularProgress
-          value={0}
-          title="00:00"
-          titleColor="#fff"
-          titleStyle={'bold'}
-          titleFontSize={48}
-          showProgressValue={false}
-          radius={Dimensions.get('window').width*0.3}
-          maxValue={100}
-          initialValue={100}
-          progressValueColor={'#000'}
-          activeStrokeWidth={15}
-          activeStrokeColor="#544FFF"
-          inActiveStrokeWidth={15}
-          duration={10000}
-          onAnimationComplete={() => {}}
-          clockwise={false}
-          
-        />
-      </View>
-      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', columnGap: 10, marginTop: 20}}>
-      <Ionicons name="play" size={48} color="#544FFF" />
-      <Ionicons name="pause" size={48} color="#544FFF" />
-      </View>
-      <TouchableOpacity style={{marginTop: 20}} onPress={() => router.push('/addTimer')}>
-      <AntDesign name="menuunfold" size={32} color="white" />
-      </TouchableOpacity>
+      <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+      {displayTabContent()}
+      <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 50 }}>
+        {modeTimer}
+        <View style={styles.btnContainer}>
+          <View style={[styles.button, styles.stopBtn]}>
+            <Text style={[styles.btnText, styles.stopBtnText]}>Stop</Text>
+          </View>
+          <View style={styles.button}>
+            <Text style={styles.btnText}>Pause</Text>
+          </View>
+        </View>
+        <TouchableOpacity style={styles.menu} onPress={() => router.push('/addTimer')}>
+          <AntDesign name="menuunfold" size={28} color="white" />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -90,28 +70,46 @@ export default function Home({ children }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: Platform.OS === 'android' ? 24 : 0, 
-    backgroundColor: '#1F1B2E'
+    padding: Platform.OS === 'android' ? 24 : 0,
+    backgroundColor: '#110f1a'
   },
-  textInputContainer: {
-    backgroundColor: '#6A4CA5',
-    flexDirection: 'row',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    alignItems: 'center',
-    borderRadius: 100,
-    marginVertical: 25
-  },
-  textInputText: {
-    fontSize: 16,
-    color: '#C0B6D6'
-  },
-  textInput: {
-    flex: 1,
-    paddingLeft: 8
-  },
+  
   icon: {
     position: 'absolute',
     right: 20
-  }
+  },
+  btnContainer: {
+    flexDirection: 'row',
+    marginTop: 100
+  },
+  button :{
+    backgroundColor: '#5963BC',
+    paddingVertical: 10,
+    width: Dimensions.get('window').width*0.38,
+    paddingHorizontal: 42,
+    marginHorizontal: 10,
+    marginVertical: 12,
+    borderRadius: 8
+  },
+  stopBtn :{
+    backgroundColor: '#37394C'
+  },
+  stopBtnText:{
+    color: '#5963BC'
+  },
+   btnText: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center'
+   },
+   menu: {
+    marginTop: 20,
+    backgroundColor: "#544FFF",
+    height: 70,
+    width: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 40
+   },
+
 });

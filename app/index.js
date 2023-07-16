@@ -1,8 +1,11 @@
+import AppContextProvider from "../context/AppContext";
 import Home from "./Home";
 import Onboarding from "./onboarding";
 
 const Page = () => {
-  return <Home />
+  return <AppContextProvider>
+    <Onboarding />
+  </AppContextProvider>
 }
 
 export default Page

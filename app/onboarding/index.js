@@ -1,20 +1,29 @@
 import { Image, TouchableOpacity } from "react-native"
 import { Dimensions, Platform, SafeAreaView, StyleSheet, Text, View } from "react-native"
 import { Entypo } from '@expo/vector-icons';
+import { Stack, useRouter } from "expo-router";
 
 const Onboarding = () => {
-    return <SafeAreaView style={styles.rootContainer}>
+    const router = useRouter()
+    return <>
+    <Stack.Screen options={{
+        headerShown: false
+    }}/>
+
+<SafeAreaView style={styles.rootContainer}>
         <View style={styles.titleContainer}>
             <Text style={styles.title}>Plan your work and stay productive</Text>
         </View>
         <View style={styles.imageContainer}>
             <Image source={require('../assets/images/pngwing.com.png')} style={styles.image} resizeMode="contain"/>
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/Home')}>
             <Text style={styles.buttonText}>Start</Text>
             <Entypo name="chevron-right" size={28} color="white" style={{alignSelf: 'center'}}/>            
         </TouchableOpacity>
     </SafeAreaView>
+    
+    </>
 }
 
 export default Onboarding
