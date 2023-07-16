@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 
-const TabButton = ({ name, activeTab, onHandleSearchType }) => {
-    return <TouchableOpacity style={styles.btn(name, activeTab)} onPress={onHandleSearchType}>
+const TabButton = ({ name, activeTab, onSelectActive }) => {
+    return <TouchableOpacity style={styles.btn(name, activeTab)} onPress={onSelectActive}>
         <Text style={styles.btnText(name, activeTab)}>{name}</Text>
     </TouchableOpacity>
 }
@@ -10,7 +10,7 @@ const Tabs = ({ activeTab, tabs, setActiveTab }) => {
     return (
         <View style={styles.container}>
             <FlatList data={tabs} renderItem={({ item }) => {
-                return <TabButton name={item} activeTab={activeTab} onHandleSearchType={() => setActiveTab(item)} />
+                return <TabButton name={item} activeTab={activeTab} onSelectActive={() => setActiveTab(item)} />
             }} horizontal showsHorizontalScrollIndicator={false} keyExtractor={item => item} contentContainerStyle={{ columnGap: 8 }} />
         </View>
     )

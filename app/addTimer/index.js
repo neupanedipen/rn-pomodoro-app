@@ -1,4 +1,5 @@
 import { Stack } from "expo-router"
+import { useRouter } from "expo-router"
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity } from "react-native"
 import AddTimerInputItem from "../../components/AddTimerInputItem"
 import { useContext, useState } from "react"
@@ -6,6 +7,7 @@ import { SettingsContext } from "../../context/SettingsContext"
 
 
 const AddTimer = () => {
+    const router = useRouter()
 
     const [newTimer, setNewTimer] = useState({
         work: 0.2,
@@ -16,32 +18,24 @@ const AddTimer = () => {
 
     const {updateExecute} = useContext(SettingsContext)
 
-    const handleChange = (text, input) => {
-       
-        switch (text) {
-            case 'work':
-                setNewTimer({
-                    ...newTimer,
-                    work: parseInt(text)
-                })
-                break;
-            case 'shortBreak':
-                setNewTimer({
-                    ...newTimer,
-                    short: parseInt(text)
-                })
-                break;
-            case 'longBreak':
-                setNewTimer({
-                    ...newTimer,
-                    long: parseInt(text)
-                })
-                break;
+    const handleChange = (name, value) => {
+        console.log(name, value);
+        if((value).length === 0){
+            setNewTimer({
+                ...newTimer,
+                [name]: ''
+            })             
+        }else {
+            setNewTimer({
+                ...newTimer,
+                [name]: parseInt(value)
+            })       
         }
     }
     const handleSubmit = e => {
         e.preventDefault()
         updateExecute(newTimer)
+        router.replace('/Home')        
     }
 
     return <SafeAreaView style={{flex: 1}}>
@@ -55,9 +49,9 @@ const AddTimer = () => {
         }} />
         <>
             <ScrollView style={{backgroundColor: '#110f1a', padding: 18}}>
-                <AddTimerInputItem type={'Focus Time'} name="work" onChange={handleChange} value={newTimer.work} />
-                <AddTimerInputItem type={'Short Break'} name="shortBreak" onChange={handleChange} value={newTimer.short} />
-                <AddTimerInputItem type={'Long Break'} name="longBreak" onChange={handleChange} value={newTimer.long} />
+                <AddTimerInputItem type={'Focus Time'} onChange={(text) => handleChange('work', text)} value={newTimer.work} />
+                <AddTimerInputItem type={'Short Break'} onChange={(text) => handleChange('short', text)} value={newTimer.short} />
+                <AddTimerInputItem type={'Long Break'} onChange={(text) => handleChange('long', text)} value={newTimer.long} />
                 <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                     <Text style={styles.btnText}>Save</Text>
                 </TouchableOpacity>

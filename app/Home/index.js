@@ -1,6 +1,6 @@
 import { Dimensions, Platform, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Tabs from "../../components/Tabs";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Stack, useRouter } from "expo-router";
 import { AntDesign } from '@expo/vector-icons';
 import CircularBarAnimation from "../../components/CircularBarAnimation";
@@ -10,32 +10,48 @@ import { SettingsContext } from "../../context/SettingsContext";
 
 const tabs = ['Focus', 'Short Break', 'Long Break']
 
-export default function Home({ children }) {
+export default function Home() {
+  const {
+    pomodoro,
+    executing,
+    startAnimate,
+    children,
+    startTimer,
+    pauseTimer,
+    updateExecute,
+    setCurrentTimer,
+    SettingsBtn } = useContext(SettingsContext)
+
+  useEffect(() => { updateExecute(executing) }, [executing, startAnimate])
+
   const router = useRouter()
   const [activeTab, setActiveTab] = useState(tabs[0])
-  // const {focus, shortBreak, longBreak} = useContext(AppContext)
-
-  let modeTimer = ''
-  const {timerContent} =useContext(SettingsContext)
 
   const displayTabContent = () => {
     switch (activeTab) {
       case "Focus":
-        modeTimer = <CircularBarAnimation key={activeTab} >{timerContent}</CircularBarAnimation>
+        setCurrentTimer('work')
         break;
 
       case "Short Break":
-        modeTimer = <CircularBarAnimation key={activeTab} >{timerContent}</CircularBarAnimation>
+        setCurrentTimer('short')
         break;
 
       case "Long Break":
-        modeTimer = <CircularBarAnimation key={activeTab} >{timerContent}</CircularBarAnimation>
+        setCurrentTimer('long')
         break;
 
       default:
         return null;
     }
   };
+
+
+  useEffect(() => {
+    displayTabContent()
+  }, [activeTab])
+
+
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen
@@ -46,12 +62,11 @@ export default function Home({ children }) {
       />
       <Text style={{ fontSize: 22, fontWeight: 'bold', marginTop: 20, color: '#E0DFE1', textAlign: 'center' }}>Pomodoro Timer</Text>
 
-      <TextInputBar/>
+      <TextInputBar />
 
       <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-      {displayTabContent()}
       <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 50 }}>
-        {modeTimer}
+        <CircularBarAnimation key={pomodoro} timer={pomodoro} animate={startAnimate}/>
         <View style={styles.btnContainer}>
           <View style={[styles.button, styles.stopBtn]}>
             <Text style={[styles.btnText, styles.stopBtnText]}>Stop</Text>
@@ -74,7 +89,7 @@ const styles = StyleSheet.create({
     padding: Platform.OS === 'android' ? 24 : 0,
     backgroundColor: '#110f1a'
   },
-  
+
   icon: {
     position: 'absolute',
     right: 20
@@ -83,27 +98,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 100
   },
-  button :{
+  button: {
     backgroundColor: '#5963BC',
     paddingVertical: 10,
-    width: Dimensions.get('window').width*0.38,
+    width: Dimensions.get('window').width * 0.38,
     paddingHorizontal: 42,
     marginHorizontal: 10,
     marginVertical: 12,
     borderRadius: 8
   },
-  stopBtn :{
+  stopBtn: {
     backgroundColor: '#37394C'
   },
-  stopBtnText:{
+  stopBtnText: {
     color: '#5963BC'
   },
-   btnText: {
+  btnText: {
     color: '#fff',
     fontSize: 16,
     textAlign: 'center'
-   },
-   menu: {
+  },
+  menu: {
     marginTop: 20,
     backgroundColor: "#544FFF",
     height: 70,
@@ -111,6 +126,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 40
-   },
+  },
 
 });

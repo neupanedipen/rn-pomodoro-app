@@ -22,14 +22,16 @@ function SettingsContextProvider(props) {
     function pauseTimer() {
         setStartAnimate(false)
     }
-    const timerContent = ({ remainingTime }) => {
+
+    const children = ({ remainingTime }) => {
         const minutes = Math.floor(remainingTime / 60)
         const seconds = remainingTime % 60
 
+        console.log(`${minutes}:${seconds}`);
         return `${minutes}:${seconds}`
     }
 
-    // const timerContent = <Text>09:30</Text>
+    // const children = <Text>09:30</Text>
 
     const SettingsBtn = () => {
         setExecuting({})
@@ -70,7 +72,7 @@ function SettingsContextProvider(props) {
             startAnimate,
             startTimer,
             pauseTimer,
-            timerContent,
+            children,
             SettingsBtn,
             setCurrentTimer,
             stopAnimate
