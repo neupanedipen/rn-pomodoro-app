@@ -4,12 +4,11 @@ import { SettingsContext } from '../context/SettingsContext'
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer'
 import formatTime from '../utils/formatTime'
 
-const CircularBarAnimation = ({key, timer, animate}) => {
-  console.log(timer);
+const CircularBarAnimation = ({item, timer, animate}) => {
   const {stopAnimate} = useContext(SettingsContext)
     return <View style={styles.circularBarContainer}>
     <CountdownCircleTimer
-        key={key}
+        key={item}
         isPlaying={animate}
         duration={timer * 60}
         colors={['#544FFF']}

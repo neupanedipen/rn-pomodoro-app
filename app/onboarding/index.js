@@ -17,7 +17,7 @@ const Onboarding = () => {
         <View style={styles.imageContainer}>
             <Image source={require('../assets/images/pngwing.com.png')} style={styles.image} resizeMode="contain"/>
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => router.push('/Home')}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/addTimer')}>
             <Text style={styles.buttonText}>Start</Text>
             <Entypo name="chevron-right" size={28} color="white" style={{alignSelf: 'center'}}/>            
         </TouchableOpacity>

@@ -10,16 +10,15 @@ const AddTimer = () => {
     const router = useRouter()
 
     const [newTimer, setNewTimer] = useState({
-        work: 0.2,
-        short: 0.1,
-        long: 0.5,
+        work: 25,
+        short: 5,
+        long: 15,
         active: 'work'
     })
 
     const {updateExecute} = useContext(SettingsContext)
 
     const handleChange = (name, value) => {
-        console.log(name, value);
         if((value).length === 0){
             setNewTimer({
                 ...newTimer,

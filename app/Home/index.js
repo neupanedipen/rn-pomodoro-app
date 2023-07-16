@@ -1,6 +1,6 @@
-import { Dimensions, Platform, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Dimensions, Platform, Pressable, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Tabs from "../../components/Tabs";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { Stack, useRouter } from "expo-router";
 import { AntDesign } from '@expo/vector-icons';
 import CircularBarAnimation from "../../components/CircularBarAnimation";
@@ -15,12 +15,12 @@ export default function Home() {
     pomodoro,
     executing,
     startAnimate,
-    children,
     startTimer,
     pauseTimer,
     updateExecute,
     setCurrentTimer,
-    SettingsBtn } = useContext(SettingsContext)
+     } = useContext(SettingsContext)
+
 
   useEffect(() => { updateExecute(executing) }, [executing, startAnimate])
 
@@ -66,14 +66,14 @@ export default function Home() {
 
       <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
       <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 50 }}>
-        <CircularBarAnimation key={pomodoro} timer={pomodoro} animate={startAnimate}/>
+        <CircularBarAnimation item={pomodoro} timer={pomodoro} animate={startAnimate}/>
         <View style={styles.btnContainer}>
-          <View style={[styles.button, styles.stopBtn]}>
-            <Text style={[styles.btnText, styles.stopBtnText]}>Stop</Text>
-          </View>
-          <View style={styles.button}>
+          <Pressable android_ripple={{color: 'gray'}} onPress={startTimer} style={[styles.button, styles.stopBtn]}>
+            <Text style={[styles.btnText, styles.stopBtnText]}>Start</Text>
+          </Pressable>
+          <Pressable android_ripple={{color: 'gray'}} onPress={pauseTimer} style={styles.button}>
             <Text style={styles.btnText}>Pause</Text>
-          </View>
+          </Pressable>
         </View>
         <TouchableOpacity style={styles.menu} onPress={() => router.push('/addTimer')}>
           <AntDesign name="menuunfold" size={28} color="white" />
@@ -111,7 +111,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#37394C'
   },
   stopBtnText: {
-    color: '#5963BC'
+    color: '#5963BC',
+    fontWeight: 'bold'
   },
   btnText: {
     color: '#fff',

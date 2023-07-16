@@ -23,14 +23,6 @@ function SettingsContextProvider(props) {
         setStartAnimate(false)
     }
 
-    const children = ({ remainingTime }) => {
-        const minutes = Math.floor(remainingTime / 60)
-        const seconds = remainingTime % 60
-
-        console.log(`${minutes}:${seconds}`);
-        return `${minutes}:${seconds}`
-    }
-
     // const children = <Text>09:30</Text>
 
     const SettingsBtn = () => {
@@ -72,7 +64,6 @@ function SettingsContextProvider(props) {
             startAnimate,
             startTimer,
             pauseTimer,
-            children,
             SettingsBtn,
             setCurrentTimer,
             stopAnimate
